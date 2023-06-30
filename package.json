@@ -1,0 +1,39 @@
+{
+  "name": "xin-timezone-picker",
+  "version": "0.1",
+  "description": "Incredibly simple, powerful, and efficient state management for React…",
+  "source": "src/index.ts",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/types.d.ts",
+  "scripts": {
+    "start": "bun parcel demo/index.html --dist-dir www -p 8777",
+    "build": "bun parcel build src/index.ts --dist-dir dist",
+    "update": "bun install"
+  },
+  "keywords": [
+    "xinjs",
+    "web-components",
+    "javascript",
+    "typescript",
+    "timezones",
+    "timezone-picker"
+  ],
+  "author": "Tonio Loewald",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tonioloewald/xin-timezone-picker.git"
+  },
+  "devDependencies": {
+    "@parcel/packager-ts": "^2.9.3",
+    "@parcel/transformer-typescript-types": "^2.9.3",
+    "bun-types": "latest",
+    "parcel": "latest",
+    "typescript": "^5.0.4"
+  },
+  "peerDependencies": {
+    "xinjs": "^0.4.14"
+  },
+  "type": "module"
+}
