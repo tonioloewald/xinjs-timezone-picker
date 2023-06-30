@@ -4,8 +4,6 @@ import timezoneMapSource from './timezone-map'
 
 const {fragment, div, select, option} = elements
 
-const SVG_XMLMS = 'http://www.w3.org/2000/svg'
-
 const timezoneMap = (): any => {
   const elt = div()
   elt.innerHTML = timezoneMapSource
@@ -113,7 +111,7 @@ export class TimezonePicker extends WebComponent {
     this.showActive()
     zonePicker.textContent = ''
     zonePicker.append(
-      ...zones.map(timezone => option({value: timezone.name}, timezone.name))
+      ...zones.map(timezone => option({value: timezone.name}, timezone.name.replace(/_/g, ' ')))
     )
     zonePicker.value = this.value.name
   }

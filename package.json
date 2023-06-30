@@ -4,11 +4,10 @@
   "description": "Incredibly simple, powerful, and efficient state management for React…",
   "source": "src/index.ts",
   "main": "dist/index.js",
-  "module": "dist/index.mjs",
   "types": "dist/types.d.ts",
   "scripts": {
     "start": "bun parcel demo/index.html --dist-dir www -p 8777",
-    "build": "bun parcel build src/index.ts --dist-dir dist",
+    "build": "bun parcel build",
     "update": "bun install"
   },
   "keywords": [
