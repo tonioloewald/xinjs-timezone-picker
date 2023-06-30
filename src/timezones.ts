@@ -6,18 +6,15 @@ export interface Timezone {
   utc: string
 }
 
+// @ts-ignore-error
 export const timezones: Timezone[] = Intl.supportedValuesOf('timeZone').map(name => {
+  // @ts-expect-error
   const offset = Number(Intl.DateTimeFormat('en-GB', {
     hour: 'numeric',
     minute: 'numeric',
     timeZoneName: 'shortOffset',
     timeZone: name
-  }).format(timeNow).split('GMT').pop())
-  console.log({
-    name,
-    offset,
-    utc: offset !== 0 ? `UTC${offset > 0 ? '+' : '-'}${offset}` : 'UTC'
-  })
+  }).format(timeNow).split('GMT').pop().replace(/\:30/, '.5'))
   return {
     name,
     offset,

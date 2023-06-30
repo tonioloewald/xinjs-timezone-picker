@@ -78,8 +78,12 @@ export class TimezonePicker extends WebComponent {
     zonePicker.textContent = ''
     // @ts-expect-error
     const utc = event.target.getAttribute('title')
-    // @ts-expect-error
-    this.timezone = timezones.find(timezone => timezone.utc === utc).name
+    const zone = timezones.find(timezone => timezone.utc === utc)
+    if (zone !== undefined) {
+      this.timezone = zone.name
+    } else {
+      console.error(`no timezone found for ${utc}`)
+    }
   }
 
   connectedCallback() {
