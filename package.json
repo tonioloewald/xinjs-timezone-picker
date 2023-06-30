@@ -1,5 +1,5 @@
 {
-  "name": "xin-timezone-picker",
+  "name": "xinjs-timezone-picker",
   "version": "0.1",
   "description": "Incredibly simple, powerful, and efficient state management for React…",
   "source": "src/index.ts",
@@ -23,7 +23,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/tonioloewald/xin-timezone-picker.git"
+    "url": "https://github.com/tonioloewald/xinjs-timezone-picker.git"
   },
   "devDependencies": {
     "@parcel/packager-ts": "^2.9.3",
