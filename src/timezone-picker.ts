@@ -8,13 +8,6 @@ const SVG_XMLNS = 'http://www.w3.org/2000/svg'
 
 const regionKey = Symbol('region')
 
-regions.forEach(region => {
-  const timezone = timezones.find(tz => tz.name === region.timezone)
-  if (timezone !== undefined) {
-    region.abbr = timezone.abbr
-  }
-})
-
 const timezoneMap = (): any => {
   const svg = document.createElementNS(SVG_XMLNS, 'svg')
   svg.setAttribute('viewBox', '0 0 500 250')
@@ -32,6 +25,7 @@ const timezoneMap = (): any => {
 export class TimezonePicker extends WebComponent {
   value = localTimezone
   timezone = localTimezone.name
+  region = regions.find(rg => rg.timezone === localTimezone.name)
 
   styleNode = WebComponent.StyleNode({
     ':host': {
@@ -90,7 +84,13 @@ export class TimezonePicker extends WebComponent {
     // @ts-expect-error
     const region = event.target[regionKey]
     if (region !== undefined) {
+      this.region = region
       this.timezone = region.timezone
+    }
+
+    if (this.value === undefined || this.value.name !== this.timezone) {
+      // @ts-expect-error
+      this.value = timezones.find(timezone => timezone.name === this.timezone)
     }
   }
 
@@ -106,14 +106,10 @@ export class TimezonePicker extends WebComponent {
 
   render() {
     const {zonePicker, map} = this.refs
-    if (this.value.name !== this.timezone) {
-      // @ts-expect-error
-      this.value = timezones.find(timezone => timezone.name === this.timezone)
-    }
-    const zones = timezones.filter(timezone => timezone.abbr === this.value.abbr)
+    const zones = timezones.filter(timezone => timezone.abbr === this.value?.abbr)
     ;[...map.querySelectorAll(`polygon`)].forEach(polygon => {
-      // console.log(polygon[regionKey].abbr)
-      polygon.classList.toggle('active', polygon[regionKey].abbr === this.value.abbr)
+      const region = polygon[regionKey]
+      polygon.classList.toggle('active', this.region !== undefined && region.abbr === this.region?.abbr && region.offset === this.region?.offset)
     })
     zonePicker.textContent = ''
     zonePicker.append(
