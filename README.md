@@ -1,4 +1,4 @@
-# xin-timezone-picker
+# xinjs-timezone-picker
 
 [github](https://github.com/tonioloewald/xinjs-timezone-picker#readme) | [npm](https://www.npmjs.com/package/xinjs-timezone-picker)
 
