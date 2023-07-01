@@ -74,12 +74,15 @@ export class TimezonePicker extends WebComponent {
       strokeWidth: 0.5,
     },
     'polygon.hover': {
-      fill: 'var(--hover-color, #777)',
-      stroke: 'var(--hover-color, #555)',
+      fill: 'var(--hover-color, #888)',
+      stroke: 'var(--hover-color, #888)',
     },
     'polygon.active': {
-      fill: 'var(--active-color, #999)',
-      stroke: 'var(--active-color, #555)',
+      fill: `var(--active-color, #ccc)`,
+      stroke: `var(--active-color, #ccc)`,
+    },
+    'polygon.offset': {
+      filter: `var(--offset-filter, brightness(0.75))`,
     },
     '.zone-name': {
       fontFamily: 'var(--font-family, Sans-serif)',
@@ -149,6 +152,11 @@ export class TimezonePicker extends WebComponent {
     }
   }
 
+  focusInput = (event: Event): void => {
+    // @ts-expect-error
+    event.target.select()
+  }
+
   connectedCallback() {
     super.connectedCallback()
 
@@ -160,6 +168,7 @@ export class TimezonePicker extends WebComponent {
     map.addEventListener('mouseover', this.hoverRegion)
     map.addEventListener('click', this.pickRegion)
     zoneName.addEventListener('change', this.pickZone)
+    zoneName.addEventListener('focus', this.focusInput)
   }
 
   private validate() {
@@ -175,7 +184,7 @@ export class TimezonePicker extends WebComponent {
     const {map} = this.refs
     ;[...map.querySelectorAll(`polygon`)].forEach(polygon => {
       const rg = polygon[regionKey] as Region
-      polygon.classList.toggle(className, rg === region || (rg.abbr === region?.abbr && rg.offset === region?.offset))
+      polygon.classList.toggle(className, rg === region || rg.offset === region?.offset)
     })
   }
 

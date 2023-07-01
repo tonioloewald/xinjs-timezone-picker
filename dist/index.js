@@ -4226,12 +4226,15 @@ class $dac6c3868e5c3497$export$6e05cc8a7dfe9700 extends (0, $519f1ddd575d759f$ex
             strokeWidth: 0.5
         },
         "polygon.hover": {
-            fill: "var(--hover-color, #777)",
-            stroke: "var(--hover-color, #555)"
+            fill: "var(--hover-color, #888)",
+            stroke: "var(--hover-color, #888)"
         },
         "polygon.active": {
-            fill: "var(--active-color, #999)",
-            stroke: "var(--active-color, #555)"
+            fill: `var(--active-color, #ccc)`,
+            stroke: `var(--active-color, #ccc)`
+        },
+        "polygon.offset": {
+            filter: `var(--offset-filter, brightness(0.75))`
         },
         ".zone-name": {
             fontFamily: "var(--font-family, Sans-serif)",
@@ -4288,6 +4291,10 @@ class $dac6c3868e5c3497$export$6e05cc8a7dfe9700 extends (0, $519f1ddd575d759f$ex
         if (zone !== undefined) this.value = this.timezone = zone.name;
         else zoneName.value = this.zoneId;
     };
+    focusInput = (event)=>{
+        // @ts-expect-error
+        event.target.select();
+    };
     connectedCallback() {
         super.connectedCallback();
         const { map: map, zoneName: zoneName } = this.refs;
@@ -4296,6 +4303,7 @@ class $dac6c3868e5c3497$export$6e05cc8a7dfe9700 extends (0, $519f1ddd575d759f$ex
         map.addEventListener("mouseover", this.hoverRegion);
         map.addEventListener("click", this.pickRegion);
         zoneName.addEventListener("change", this.pickZone);
+        zoneName.addEventListener("focus", this.focusInput);
     }
     validate() {
         if (this.value !== this.timezone) {
@@ -4309,7 +4317,7 @@ class $dac6c3868e5c3497$export$6e05cc8a7dfe9700 extends (0, $519f1ddd575d759f$ex
             ...map.querySelectorAll(`polygon`)
         ].forEach((polygon)=>{
             const rg = polygon[$dac6c3868e5c3497$var$regionKey];
-            polygon.classList.toggle(className, rg === region || rg.abbr === region?.abbr && rg.offset === region?.offset);
+            polygon.classList.toggle(className, rg === region || rg.offset === region?.offset);
         });
     }
     render() {
@@ -4328,5 +4336,6 @@ const $dac6c3868e5c3497$export$5e870c586af91bc = $dac6c3868e5c3497$export$6e05cc
 
 
 
-export {$dac6c3868e5c3497$export$5e870c586af91bc as timezonePicker, $dac6c3868e5c3497$export$6e05cc8a7dfe9700 as TimezonePicker, $1fe5fe80b15eb088$export$bc6bb0e72ae9e582 as timezones, $1fe5fe80b15eb088$export$80a1beafc835526e as localTimezone};
+
+export {$dac6c3868e5c3497$export$5e870c586af91bc as timezonePicker, $dac6c3868e5c3497$export$6e05cc8a7dfe9700 as TimezonePicker, $1fe5fe80b15eb088$export$bc6bb0e72ae9e582 as timezones, $1fe5fe80b15eb088$export$80a1beafc835526e as localTimezone, $7148e8975cd26971$export$6b408984b31c1b30 as regions};
 //# sourceMappingURL=index.js.map
