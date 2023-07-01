@@ -1,8 +1,8 @@
 import { Component } from "xinjs";
 interface Timezone {
     name: string;
+    abbr: string;
     offset: number;
-    utc: string;
 }
 export const timezones: Timezone[];
 export const localTimezone: Timezone;
@@ -12,9 +12,8 @@ export class TimezonePicker extends Component {
     styleNode: HTMLStyleElement;
     content: any;
     constructor();
-    pickUTC: (event: Event) => void;
+    pickRegion: (event: Event) => void;
     connectedCallback(): void;
-    showActive: () => void;
     render(): void;
 }
 export const timezonePicker: import("xinjs").ElementCreator<any>;

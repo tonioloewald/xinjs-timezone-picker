@@ -2,8 +2,8 @@ const timeNow = new Date()
 
 export interface Timezone {
   name: string,
+  abbr: string,
   offset: number,
-  utc: string
 }
 
 // @ts-ignore-error
@@ -15,10 +15,18 @@ export const timezones: Timezone[] = Intl.supportedValuesOf('timeZone').map(name
     timeZoneName: 'shortOffset',
     timeZone: name
   }).format(timeNow).split('GMT').pop().replace(/\:30/, '.5'))
+
+  const abbr = Intl.DateTimeFormat('en-GB', {
+    hour: 'numeric',
+    minute: 'numeric',
+    timeZoneName: 'short',
+    timeZone: name
+  }).format(timeNow).split(' ').pop()
+
   return {
     name,
+    abbr,
     offset,
-    utc: `UTC${offset > 0 ? '+' : ''}${offset !== 0 ? offset : ''}`
   }
 })
 

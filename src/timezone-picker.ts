@@ -1,13 +1,32 @@
 import { Component as WebComponent, elements } from 'xinjs'
 import { localTimezone, timezones } from './timezones'
-import timezoneMapSource from './timezone-map'
+import { regions } from './regions'
 
 const {fragment, div, select, option} = elements
 
+const SVG_XMLNS = 'http://www.w3.org/2000/svg'
+
+const regionKey = Symbol('region')
+
+regions.forEach(region => {
+  const timezone = timezones.find(tz => tz.name === region.timezone)
+  if (timezone !== undefined) {
+    region.abbr = timezone.abbr
+  }
+})
+
 const timezoneMap = (): any => {
-  const elt = div()
-  elt.innerHTML = timezoneMapSource
-  return elt.querySelector('svg') as any
+  const svg = document.createElementNS(SVG_XMLNS, 'svg')
+  svg.setAttribute('viewBox', '0 0 500 250')
+  svg.append(
+    ...regions.map(region => {
+      const polygon = document.createElementNS(SVG_XMLNS, 'polygon')
+      polygon.setAttribute('points', region.points)
+      polygon[regionKey] = region
+      return polygon
+    })
+  )
+  return svg
 }
 
 export class TimezonePicker extends WebComponent {
@@ -19,8 +38,8 @@ export class TimezonePicker extends WebComponent {
       display: 'flex',
       flexDirection: 'column',
       position: 'relative',
-      width: `calc(400px * var(--scale, 1))`,
-      height: `calc(231px * var(--scale, 1))`, // 400 * 3037.122 / 5256.518
+      width: `calc(500px * var(--scale, 1))`,
+      height: `calc(250px * var(--scale, 1))`,
       fontFamily: 'var(--font-family, Sans-serif)',
     },
     '.map': {
@@ -30,32 +49,28 @@ export class TimezonePicker extends WebComponent {
       width: '100%',
       height: '100%'
     },
-    '.world path': {
-      fill: 'var(--map-land, #555)'
+    'polygon': {
+      transition: 'var(--transition, ease-out 0.2s)',
+      fill: 'var(--map-land, #555)',
     },
-    '.timezones path': {
-      transition: 'ease-out 0.2s',
-      fill: 'white',
-      opacity: 0
+    'polygon:hover': {
+      fill: 'var(--hover-color, #777)',
     },
-    '.timezones path:hover': {
-      opacity: 0.25
-    },
-    '.timezones path.active': {
-      opacity: 0.3
+    'polygon.active': {
+      fill: 'var(--active-color, #999)',
     },
     '.zone-name': {
       position: 'absolute',
       bottom: `var(--inset, 10px)`,
       left: `var(--inset, 10px)`,
       right: `var(--inset, 10px)`,
-      color: 'var(--text-color, white)',
+      color: 'var(--font-color, white)',
       fontSize: 'var(--font-size, 16px)',
       padding: `calc(var(--padding, 5px))`,
       background: 'none',
       textAlign: 'center',
       border: 'none',
-      outline: 'none'
+      outline: 'none',
     }
   })
 
@@ -71,16 +86,11 @@ export class TimezonePicker extends WebComponent {
     this.initAttributes('timezone')
   }
 
-  pickUTC = (event: Event): void => {
-    const {zonePicker} = this.refs
-    zonePicker.textContent = ''
+  pickRegion = (event: Event): void => {
     // @ts-expect-error
-    const utc = event.target.getAttribute('title')
-    const zone = timezones.find(timezone => timezone.utc === utc)
-    if (zone !== undefined) {
-      this.timezone = zone.name
-    } else {
-      console.error(`no timezone found for ${utc}`)
+    const region = event.target[regionKey]
+    if (region !== undefined) {
+      this.timezone = region.timezone
     }
   }
 
@@ -91,24 +101,20 @@ export class TimezonePicker extends WebComponent {
     if (map.querySelector('svg') === null) {
       map.append(timezoneMap())
     }
-    map.addEventListener('click', this.pickUTC)
-  }
-
-  showActive = () => {
-    const {map} = this.refs
-    ;[...map.querySelectorAll(`path[title]`)].forEach(path => {
-      path.classList.toggle('active', path.getAttribute('title') === this.value.utc)
-    })
+    map.addEventListener('click', this.pickRegion)
   }
 
   render() {
-    const {zonePicker} = this.refs
+    const {zonePicker, map} = this.refs
     if (this.value.name !== this.timezone) {
       // @ts-expect-error
       this.value = timezones.find(timezone => timezone.name === this.timezone)
     }
-    const zones = timezones.filter(timezone => timezone.utc === this.value.utc)
-    this.showActive()
+    const zones = timezones.filter(timezone => timezone.abbr === this.value.abbr)
+    ;[...map.querySelectorAll(`polygon`)].forEach(polygon => {
+      // console.log(polygon[regionKey].abbr)
+      polygon.classList.toggle('active', polygon[regionKey].abbr === this.value.abbr)
+    })
     zonePicker.textContent = ''
     zonePicker.append(
       ...zones.map(timezone => option({value: timezone.name}, timezone.name.replace(/_/g, ' ')))

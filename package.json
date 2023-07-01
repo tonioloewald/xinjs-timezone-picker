@@ -2,7 +2,6 @@
   "name": "xinjs-timezone-picker",
   "version": "0.1",
   "description": "Incredibly simple, powerful, and efficient state management for React…",
-  "source": "src/index.ts",
   "main": "dist/index.js",
   "types": "dist/types.d.ts",
   "scripts": {
@@ -34,5 +33,22 @@
   "peerDependencies": {
     "xinjs": "^0.4.14"
   },
-  "type": "module"
+  "type": "module",
+  "targets": {
+    "dist": {
+      "context": "browser",
+      "source": "src/index.ts",
+      "isLibrary": true,
+      "distDir": "dist",
+      "outputFormat": "esmodule"
+    },
+    "cdn": {
+      "context": "browser",
+      "source": "src/index.ts",
+      "distDir": "cdn",
+      "optimize": true,
+      "isLibrary": true,
+      "outputFormat": "esmodule"
+    }
+  }
 }

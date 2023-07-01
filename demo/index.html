@@ -15,11 +15,32 @@
       h1 {
         font-weight: 200;
       }
+
+      .column {
+        display: flex;
+        flex-direction: column;
+        align-items: center
+      }
+
+      timezone-picker {
+        border-radius: 10px;
+        overflow: hidden;
+        --scale: 1.5;
+        --font-family: System, sans-serif;
+        --map-land: rgba(0, 0, 0, 0.25);
+        --map-ocean: rgba(128, 192, 255, 0.25);
+        --font-color: black;
+        --hover-color: #444;
+        --active-color: #222;
+      }
     </style>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
-    <h1>xinjs &lt;timezone-picker&gt; demo</h1>
-    <script src="./index.ts" async type="module"></script>
+    <div class="column">
+      <h1>xinjs &lt;timezone-picker&gt; demo</h1>
+      <timezone-picker></timezone-picker>
+    </div>
+    <script src="../src/index.ts" async type="module"></script>
   </body>
 </html>

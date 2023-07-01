@@ -48,10 +48,16 @@ These are respectively of type `Timezone[]` and a `Timezone`, where:
 
 You can style the <timezone-picker> by using [CSS-Variables](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_cascading_variables)
 
-By default, the <timezone-picker> is 400px width and 231px tall. You can scale it using ths `--scale` variable (1 by default).
+By default, the <timezone-picker> is 400px wide and 231px tall.
 
-You can change the land and ocean colors using the `--map-ocean` and `--map-land` variables.
+`--scale` scales the map as a whole.
+
+`--map-ocean` and `--map-land` set the map colors.
+
+`--active-color`, `--hover-opacity`, `--active-opacity` set the timezone colors.
+
+`--hover-transition` controls the animated transition of the timezones.
 
 `--inset` and `--padding` position and pad the time-zone `<select>`.
 
-`--font-size` and `--font-family` control the text of the `<select>`
+`--font-size`, `--font-color`, and `--font-family` control the text of the `<select>`
