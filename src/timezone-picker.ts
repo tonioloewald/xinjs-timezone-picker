@@ -66,9 +66,12 @@ export class TimezonePicker extends WebComponent {
       position: 'relative',
       width: `calc(500px * var(--scale, 1))`,
       height: `calc(250px * var(--scale, 1))`,
+      overflow: 'hidden',
     },
     '.map': {
-      background: 'var(--map-ocean, #79b)'
+      background: 'var(--map-ocean, #79b)',
+      flex: '1 1 auto',
+      overflow: 'hidden',
     },
     '.map, svg': {
       width: '100%',

@@ -5083,10 +5083,13 @@ class $dac6c3868e5c3497$export$6e05cc8a7dfe9700 extends (0, $519f1ddd575d759f$ex
             flexDirection: "column",
             position: "relative",
             width: `calc(500px * var(--scale, 1))`,
-            height: `calc(250px * var(--scale, 1))`
+            height: `calc(250px * var(--scale, 1))`,
+            overflow: "hidden"
         },
         ".map": {
-            background: "var(--map-ocean, #79b)"
+            background: "var(--map-ocean, #79b)",
+            flex: "1 1 auto",
+            overflow: "hidden"
         },
         ".map, svg": {
             width: "100%",

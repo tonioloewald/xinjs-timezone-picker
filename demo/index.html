@@ -19,6 +19,28 @@
         --heading-scale: 2;
       }
 
+      @media screen and (max-width: 800px) {
+        :root {
+          --spacing: 8px;
+          --heading-scale: 1.5;
+        }
+
+        timezone-picker {
+          --scale: 1;
+        }
+      }
+
+      @media screen and (max-height: 800px) {
+        :root {
+          --spacing: 8px;
+          --heading-scale: 1.5;
+        }
+
+        timezone-picker {
+          --scale: 1;
+        }
+      }
+
       * {
         font-family: var(--font-family);
         font-size: var(--font-size);
@@ -26,9 +48,6 @@
 
       body { 
         margin: 0;
-        max-width: 100vw;
-        max-height: 100vh;
-        overflow: hidden;
       }
 
       h1 {
@@ -45,6 +64,9 @@
         align-items: stretch;
         display: flex;
         flex-direction: column;
+        max-width: 100vw;
+        max-height: 100vh;
+        overflow: hidden;
       }
 
       .column > * {
@@ -71,28 +93,6 @@
         --map-land: #aaa;
         --map-ocean: #ccd;
         --scale: 1.5;
-      }
-
-      @media screen and (max-width: 600px) {
-        :root {
-          --spacing: 8px;
-          --heading-scale: 1.5;
-        }
-
-        timezone-picker {
-          --scale: 1;
-        }
-      }
-
-      @media screen and (max-height: 600px) {
-        :root {
-          --spacing: 8px;
-          --heading-scale: 1.5;
-        }
-
-        timezone-picker {
-          --scale: 1;
-        }
       }
 
       a {
