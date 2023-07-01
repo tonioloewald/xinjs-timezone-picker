@@ -5057,8 +5057,10 @@ const $7148e8975cd26971$export$6b408984b31c1b30 = [
 ];
 
 
-const { fragment: $dac6c3868e5c3497$var$fragment, div: $dac6c3868e5c3497$var$div, select: $dac6c3868e5c3497$var$select, option: $dac6c3868e5c3497$var$option } = (0, $519f1ddd575d759f$export$7a5d735b2ab6389d);
+const { fragment: $dac6c3868e5c3497$var$fragment, div: $dac6c3868e5c3497$var$div, option: $dac6c3868e5c3497$var$option, input: $dac6c3868e5c3497$var$input, datalist: $dac6c3868e5c3497$var$datalist } = (0, $519f1ddd575d759f$export$7a5d735b2ab6389d);
 const $dac6c3868e5c3497$var$SVG_XMLNS = "http://www.w3.org/2000/svg";
+const $dac6c3868e5c3497$var$DATALIST_ID = "-timezone-list-";
+const $dac6c3868e5c3497$var$zoneId = (tz)=>`${tz.name.replace(/_/g, " ")} GMT${tz.offset > 0 ? "+" : ""}${tz.offset !== 0 ? tz.offset : ""}`;
 const $dac6c3868e5c3497$var$regionKey = Symbol("region");
 const $dac6c3868e5c3497$var$timezoneMap = ()=>{
     const svg = document.createElementNS($dac6c3868e5c3497$var$SVG_XMLNS, "svg");
@@ -5071,10 +5073,21 @@ const $dac6c3868e5c3497$var$timezoneMap = ()=>{
     }));
     return svg;
 };
+const $dac6c3868e5c3497$var$timezoneDatalist = $dac6c3868e5c3497$var$datalist({
+    id: $dac6c3868e5c3497$var$DATALIST_ID
+}, ...(0, $1fe5fe80b15eb088$export$bc6bb0e72ae9e582).map((tz)=>$dac6c3868e5c3497$var$option({
+        value: $dac6c3868e5c3497$var$zoneId(tz)
+    })));
 class $dac6c3868e5c3497$export$6e05cc8a7dfe9700 extends (0, $519f1ddd575d759f$export$16fa2f45be04daa8) {
-    value = (0, $1fe5fe80b15eb088$export$80a1beafc835526e);
-    timezone = (0, $1fe5fe80b15eb088$export$80a1beafc835526e).name;
-    region = (0, $7148e8975cd26971$export$6b408984b31c1b30).find((rg)=>rg.timezone === (0, $1fe5fe80b15eb088$export$80a1beafc835526e).name);
+    value = (0, $1fe5fe80b15eb088$export$80a1beafc835526e).name;
+    timezone = $dac6c3868e5c3497$var$zoneId((0, $1fe5fe80b15eb088$export$80a1beafc835526e));
+    get zone() {
+        return (0, $1fe5fe80b15eb088$export$bc6bb0e72ae9e582).find((tz)=>$dac6c3868e5c3497$var$zoneId(tz) === this.timezone);
+    }
+    get region() {
+        const { name: name } = this.zone;
+        return (0, $7148e8975cd26971$export$6b408984b31c1b30).find((rg)=>rg.timezone === name);
+    }
     styleNode = (0, $519f1ddd575d759f$export$16fa2f45be04daa8).StyleNode({
         ":host": {
             display: "flex",
@@ -5108,8 +5121,9 @@ class $dac6c3868e5c3497$export$6e05cc8a7dfe9700 extends (0, $519f1ddd575d759f$ex
             right: `var(--inset, 10px)`,
             color: "var(--font-color, white)",
             fontSize: "var(--font-size, 16px)",
-            padding: `calc(var(--padding, 5px))`,
-            background: "none",
+            padding: `calc(var(--padding, 10px))`,
+            background: "var(--input-bg, #fff4)",
+            borderRadius: "var(--input-radius, 5px)",
             textAlign: "center",
             border: "none",
             outline: "none"
@@ -5118,44 +5132,69 @@ class $dac6c3868e5c3497$export$6e05cc8a7dfe9700 extends (0, $519f1ddd575d759f$ex
     content = $dac6c3868e5c3497$var$fragment($dac6c3868e5c3497$var$div({
         class: "map",
         dataRef: "map"
-    }), $dac6c3868e5c3497$var$select({
+    }), $dac6c3868e5c3497$var$input({
         class: "zone-name",
-        dataRef: "zonePicker"
-    }));
+        dataRef: "zonePicker",
+        list: $dac6c3868e5c3497$var$DATALIST_ID
+    }), $dac6c3868e5c3497$var$timezoneDatalist);
     constructor(){
         super();
         this.initAttributes("timezone");
     }
+    static zoneFromRegion(region) {
+        return (0, $1fe5fe80b15eb088$export$bc6bb0e72ae9e582).find((tz)=>tz.name === region.timezone) || (0, $1fe5fe80b15eb088$export$bc6bb0e72ae9e582).find((tz)=>tz.offset === region.offset);
+    }
     pickRegion = (event)=>{
+        const { zonePicker: zonePicker } = this.refs;
         // @ts-expect-error
         const region = event.target[$dac6c3868e5c3497$var$regionKey];
-        if (region !== undefined) {
-            this.region = region;
-            this.timezone = region.timezone;
+        if (region === undefined) return;
+        const zone = $dac6c3868e5c3497$export$6e05cc8a7dfe9700.zoneFromRegion(region);
+        if (zone !== undefined) {
+            zonePicker.value = this.timezone = $dac6c3868e5c3497$var$zoneId(zone);
+            this.value = zone.name;
         }
-        if (this.value === undefined || this.value.name !== this.timezone) // @ts-expect-error
-        this.value = (0, $1fe5fe80b15eb088$export$bc6bb0e72ae9e582).find((timezone)=>timezone.name === this.timezone);
+    };
+    static zoneFromId(id) {
+        return (0, $1fe5fe80b15eb088$export$bc6bb0e72ae9e582).find((tz)=>id === $dac6c3868e5c3497$var$zoneId(tz));
+    }
+    pickZone = (event)=>{
+        const { zonePicker: zonePicker } = this.refs;
+        // @ts-expect-error
+        const id = event.target.value;
+        const zone = $dac6c3868e5c3497$export$6e05cc8a7dfe9700.zoneFromId(id);
+        if (zone !== undefined) {
+            this.timezone = zonePicker.value;
+            this.value = zone.name;
+        } else zonePicker.value = this.timezone;
     };
     connectedCallback() {
         super.connectedCallback();
-        const { map: map } = this.refs;
+        const { map: map, zonePicker: zonePicker } = this.refs;
+        zonePicker.setAttribute("list", $dac6c3868e5c3497$var$DATALIST_ID);
         if (map.querySelector("svg") === null) map.append($dac6c3868e5c3497$var$timezoneMap());
         map.addEventListener("click", this.pickRegion);
+        zonePicker.addEventListener("change", this.pickZone);
+    }
+    validate() {
+        if (this.value !== this.zone.name) {
+            const newZone = (0, $1fe5fe80b15eb088$export$bc6bb0e72ae9e582).find((tz)=>tz.name === this.value);
+            if (newZone !== undefined) this.timezone = $dac6c3868e5c3497$var$zoneId(newZone);
+            else this.value = this.zone.name;
+        }
     }
     render() {
+        this.validate();
+        const { region: region } = this;
         const { zonePicker: zonePicker, map: map } = this.refs;
-        const zones = (0, $1fe5fe80b15eb088$export$bc6bb0e72ae9e582).filter((timezone)=>timezone.abbr === this.value?.abbr);
+        console.log(region, this.value);
         [
             ...map.querySelectorAll(`polygon`)
         ].forEach((polygon)=>{
-            const region = polygon[$dac6c3868e5c3497$var$regionKey];
-            polygon.classList.toggle("active", this.region !== undefined && region.abbr === this.region?.abbr && region.offset === this.region?.offset);
+            const rg = polygon[$dac6c3868e5c3497$var$regionKey];
+            polygon.classList.toggle("active", rg === region || rg.abbr === region?.abbr && rg.offset === region?.offset);
         });
-        zonePicker.textContent = "";
-        zonePicker.append(...zones.map((timezone)=>$dac6c3868e5c3497$var$option({
-                value: timezone.name
-            }, timezone.name.replace(/_/g, " "))));
-        zonePicker.value = this.value.name;
+        zonePicker.value = this.timezone;
     }
 }
 const $dac6c3868e5c3497$export$5e870c586af91bc = $dac6c3868e5c3497$export$6e05cc8a7dfe9700.elementCreator({

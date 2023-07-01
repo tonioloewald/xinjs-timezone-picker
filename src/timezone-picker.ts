@@ -1,10 +1,13 @@
 import { Component as WebComponent, elements } from 'xinjs'
-import { localTimezone, timezones } from './timezones'
-import { regions } from './regions'
+import { localTimezone, timezones, Timezone } from './timezones'
+import { regions, Region } from './regions'
 
-const {fragment, div, select, option} = elements
+const {fragment, div, option, input, datalist} = elements
 
 const SVG_XMLNS = 'http://www.w3.org/2000/svg'
+const DATALIST_ID = '-timezone-list-'
+
+const zoneId = (tz: Timezone): string => `${tz.name.replace(/_/g, ' ')} GMT${tz.offset > 0 ? '+' : ''}${tz.offset !== 0 ? tz.offset : ''}`
 
 const regionKey = Symbol('region')
 
@@ -22,10 +25,24 @@ const timezoneMap = (): any => {
   return svg
 }
 
+const timezoneDatalist = datalist(
+  { id: DATALIST_ID },
+  ...timezones.map(tz => option({value: zoneId(tz)}))
+)
+
 export class TimezonePicker extends WebComponent {
-  value = localTimezone
-  timezone = localTimezone.name
-  region = regions.find(rg => rg.timezone === localTimezone.name)
+  value = localTimezone.name
+
+  timezone = zoneId(localTimezone)
+
+  get zone() : Timezone {
+    return timezones.find(tz => zoneId(tz) === this.timezone) as Timezone
+  }
+
+  get region() : Region | undefined {
+    const {name} = this.zone
+    return regions.find(rg => rg.timezone === name)
+  }
 
   styleNode = WebComponent.StyleNode({
     ':host': {
@@ -60,19 +77,23 @@ export class TimezonePicker extends WebComponent {
       right: `var(--inset, 10px)`,
       color: 'var(--font-color, white)',
       fontSize: 'var(--font-size, 16px)',
-      padding: `calc(var(--padding, 5px))`,
-      background: 'none',
+      padding: `calc(var(--padding, 10px))`,
+      background: 'var(--input-bg, #fff4)',
+      borderRadius: 'var(--input-radius, 5px)',
       textAlign: 'center',
       border: 'none',
       outline: 'none',
-    }
+    },
   })
 
   content = fragment(
     div({class: 'map', dataRef: 'map'}),
-    select(
-      {class: 'zone-name', dataRef: 'zonePicker'},
-    )
+    input({
+      class: 'zone-name',
+      dataRef: 'zonePicker',
+      list: DATALIST_ID,
+    }),
+    timezoneDatalist
   )
 
   constructor() {
@@ -80,42 +101,75 @@ export class TimezonePicker extends WebComponent {
     this.initAttributes('timezone')
   }
 
+  static zoneFromRegion(region: Region): Timezone | undefined {
+    return timezones.find(tz => tz.name === region.timezone) || timezones.find(tz => tz.offset === region.offset)
+  }
+
   pickRegion = (event: Event): void => {
+    const {zonePicker} = this.refs
     // @ts-expect-error
     const region = event.target[regionKey]
-    if (region !== undefined) {
-      this.region = region
-      this.timezone = region.timezone
+    if (region === undefined) {
+      return
     }
+    const zone = TimezonePicker.zoneFromRegion(region)
+    if (zone !== undefined) {
+      zonePicker.value = this.timezone = zoneId(zone)
+      this.value = zone.name
+    }
+  }
 
-    if (this.value === undefined || this.value.name !== this.timezone) {
-      // @ts-expect-error
-      this.value = timezones.find(timezone => timezone.name === this.timezone)
+  static zoneFromId(id: string): Timezone | undefined {
+    return timezones.find(tz => id === zoneId(tz))
+  }
+
+  pickZone = (event: Event): void => {
+    const {zonePicker} = this.refs
+    // @ts-expect-error
+    const id = event.target.value
+    const zone = TimezonePicker.zoneFromId(id)
+    if (zone !== undefined) {
+      this.timezone = zonePicker.value
+      this.value = zone.name
+    } else {
+      zonePicker.value = this.timezone
     }
   }
 
   connectedCallback() {
     super.connectedCallback()
 
-    const {map} = this.refs
+    const {map, zonePicker} = this.refs
+    zonePicker.setAttribute('list', DATALIST_ID)
     if (map.querySelector('svg') === null) {
       map.append(timezoneMap())
     }
     map.addEventListener('click', this.pickRegion)
+    zonePicker.addEventListener('change', this.pickZone)
+  }
+
+  private validate() {
+    if (this.value !== this.zone.name) {
+      const newZone = timezones.find(tz => tz.name === this.value)
+      if (newZone !== undefined) {
+        this.timezone = zoneId(newZone)
+      } else {
+        this.value = this.zone.name
+      }
+    }
   }
 
   render() {
+    this.validate()
+
+    const {region} = this
     const {zonePicker, map} = this.refs
-    const zones = timezones.filter(timezone => timezone.abbr === this.value?.abbr)
+    console.log(region, this.value)
     ;[...map.querySelectorAll(`polygon`)].forEach(polygon => {
-      const region = polygon[regionKey]
-      polygon.classList.toggle('active', this.region !== undefined && region.abbr === this.region?.abbr && region.offset === this.region?.offset)
+      const rg = polygon[regionKey] as Region
+      polygon.classList.toggle('active', rg === region || (rg.abbr === region?.abbr && rg.offset === region?.offset))
     })
-    zonePicker.textContent = ''
-    zonePicker.append(
-      ...zones.map(timezone => option({value: timezone.name}, timezone.name.replace(/_/g, ' ')))
-    )
-    zonePicker.value = this.value.name
+    zonePicker.value = this.timezone
   }
 }
 

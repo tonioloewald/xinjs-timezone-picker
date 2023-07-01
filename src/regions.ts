@@ -1,4 +1,4 @@
-interface Region {
+export interface Region {
   timezone: string
   abbr: string
   country: string
