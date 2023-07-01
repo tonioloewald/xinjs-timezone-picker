@@ -5127,8 +5127,7 @@ class $dac6c3868e5c3497$export$6e05cc8a7dfe9700 extends (0, $519f1ddd575d759f$ex
         dataRef: "map"
     }), $dac6c3868e5c3497$var$input({
         class: "zone-name",
-        dataRef: "zoneName",
-        list: $dac6c3868e5c3497$var$DATALIST_ID
+        dataRef: "zoneName"
     }), $dac6c3868e5c3497$var$timezoneDatalist);
     constructor(){
         super();
