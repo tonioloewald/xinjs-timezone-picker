@@ -110,7 +110,6 @@ export class TimezonePicker extends WebComponent {
     input({
       class: 'zone-name',
       dataRef: 'zoneName',
-      list: DATALIST_ID,
     }),
     timezoneDatalist
   )

@@ -6,7 +6,7 @@
   "types": "dist/types.d.ts",
   "scripts": {
     "start": "bun parcel demo/index.html --dist-dir www -p 8777",
-    "build": "bun parcel build",
+    "build": "rm -rf docs && bun parcel build --public-url .",
     "test": "bun test",
     "update": "bun install"
   },
@@ -34,8 +34,20 @@
   "peerDependencies": {
     "xinjs": "^0.4.14"
   },
+  "files": [
+    "/cdn",
+    "/dist",
+    "/LICENSE",
+    "/README.md"
+  ],
   "type": "module",
   "targets": {
+    "docs": {
+      "context": "browser",
+      "distDir": "docs",
+      "source": "demo/index.html",
+      "optimize": true
+    },
     "dist": {
       "context": "browser",
       "source": "src/index.ts",
