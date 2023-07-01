@@ -5083,8 +5083,7 @@ class $dac6c3868e5c3497$export$6e05cc8a7dfe9700 extends (0, $519f1ddd575d759f$ex
             flexDirection: "column",
             position: "relative",
             width: `calc(500px * var(--scale, 1))`,
-            height: `calc(250px * var(--scale, 1))`,
-            fontFamily: "var(--font-family, Sans-serif)"
+            height: `calc(250px * var(--scale, 1))`
         },
         ".map": {
             background: "var(--map-ocean, #79b)"
@@ -5108,6 +5107,7 @@ class $dac6c3868e5c3497$export$6e05cc8a7dfe9700 extends (0, $519f1ddd575d759f$ex
             stroke: "var(--active-color, #555)"
         },
         ".zone-name": {
+            fontFamily: "var(--font-family, Sans-serif)",
             position: "absolute",
             bottom: `var(--inset, 10px)`,
             left: `var(--inset, 10px)`,

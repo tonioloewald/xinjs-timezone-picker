@@ -8,30 +8,74 @@
     <link rel="apple-touch-icon" href="./favicon.png" />
     <title>xinjs component demo</title>
     <style>
-      body {
-        font-family: sans-serif;
+      @import url(https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100;200;300;400;500;600;700;800;900&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap);
+
+      :root {
+        --font-family: 'Roboto Slab', sans-serif;
+        --brand-color: #088358;
+        --brand-text-color: #ECF3DD;
+        --spacing: 10px;
+      }
+
+      * {
+        font-family: var(--font-family);
+      }
+
+      body { 
+        margin: 0;
       }
 
       h1 {
-        font-weight: 200;
+        background: var(--brand-color);
+        color: var(--brand-text-color);
+        font-weight: 400;
+        margin: 0;
+        padding: var(--spacing);
+        text-align: center;
       }
 
       .column {
+        align-items: stretch;
         display: flex;
         flex-direction: column;
-        align-items: center
+      }
+
+      .bar {
+        display: flex;
+        gap: var(--spacing);
+        justify-content: center;
+        padding: var(--spacing);
       }
 
       timezone-picker {
-        border-radius: 10px;
+        align-self: center;
+        border-radius: var(--spacing);
         overflow: hidden;
-        --scale: 1.5;
-        --font-family: System, sans-serif;
-        --map-land: #aaa;
-        --map-ocean: #ccd;
+        --active-color: #444;
         --font-color: black;
         --hover-color: #888;
-        --active-color: #444;
+        --map-land: #aaa;
+        --map-ocean: #ccd;
+        --scale: 1.5;
+      }
+
+      a {
+        transition: ease-out 0.2s;
+        background: var(--brand-text-color);
+        color: var(--brand-color);
+        display: inline-block;
+        text-decoration: none;
+        padding: var(--spacing) calc(var(--spacing) * 1.5);
+        border-radius: calc(var(--spacing) * 0.5);
+      }
+
+      a:hover {
+        box-shadow: 0 0 0 2px var(--brand-color);
+      }
+
+      a:active {
+        background: var(--brand-color);
+        color: var(--brand-text-color);
       }
     </style>
   </head>
@@ -39,6 +83,17 @@
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div class="column">
       <h1>xinjs &lt;timezone-picker&gt; demo</h1>
+      <div class="bar">
+        <a href="https://tonioloewald.github.io/xinjs-timezone-picker/">
+          demo
+        </a>
+        <a href="https://github.com/tonioloewald/xinjs-timezone-picker#readme">
+          github / docs
+        </a>
+        <a href="https://www.npmjs.com/package/xinjs-timezone-picker">
+          npm
+        </a>
+      </div>
       <timezone-picker></timezone-picker>
     </div>
     <script src="../src/index.ts" async type="module"></script>

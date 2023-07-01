@@ -66,7 +66,6 @@ export class TimezonePicker extends WebComponent {
       position: 'relative',
       width: `calc(500px * var(--scale, 1))`,
       height: `calc(250px * var(--scale, 1))`,
-      fontFamily: 'var(--font-family, Sans-serif)',
     },
     '.map': {
       background: 'var(--map-ocean, #79b)'
@@ -90,6 +89,7 @@ export class TimezonePicker extends WebComponent {
       stroke: 'var(--active-color, #555)',
     },
     '.zone-name': {
+      fontFamily: 'var(--font-family, Sans-serif)',
       position: 'absolute',
       bottom: `var(--inset, 10px)`,
       left: `var(--inset, 10px)`,

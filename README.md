@@ -1,11 +1,13 @@
 # xinjs-timezone-picker
 
-[github](https://github.com/tonioloewald/xinjs-timezone-picker#readme) | [npm](https://www.npmjs.com/package/xinjs-timezone-picker)
+[demo](https://tonioloewald.github.io/xinjs-timezone-picker/) | [github](https://github.com/tonioloewald/xinjs-timezone-picker#readme) | [npm](https://www.npmjs.com/package/xinjs-timezone-picker)
+
+Copyright ©2023 Tonio Loewald
 
 This is a [web-component](https://developer.mozilla.org/en-US/docs/Web/API/Web_components) 
 that provides a graphical timezone-picker, inspired by Apple's graphical timezone-picker.
 
-It has been made as compact and fast-loading as possible, by keeping the geometry to a minimum,
+`<timezone-picker>` has been made as compact and fast-loading as possible, by keeping the geometry to a minimum,
 computing as using data provided by `Intl` where possible, and generating the underlying SVG
 data on-the-fly.
 
