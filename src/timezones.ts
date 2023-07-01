@@ -1,9 +1,10 @@
 const timeNow = new Date()
 
 export interface Timezone {
-  name: string,
-  abbr: string,
-  offset: number,
+  name: string
+  shortName?: string
+  abbr: string
+  offset: number
 }
 
 // @ts-ignore-error
@@ -21,13 +22,20 @@ export const timezones: Timezone[] = Intl.supportedValuesOf('timeZone').map(name
     minute: 'numeric',
     timeZoneName: 'short',
     timeZone: name
-  }).format(timeNow).split(' ').pop()
+  }).format(timeNow).split(' ').pop() as string
 
-  return {
+  const tz: Timezone = {
     name,
     abbr,
     offset,
   }
+
+  const parts = name.split('/')
+  if (parts.length === 3) {
+    tz.shortName = `${parts[0]}/${parts[2]}`
+  }
+
+  return tz
 })
 
 export const localTimezone = timezones.find(z => z.name === Intl.DateTimeFormat().resolvedOptions().timeZone) as Timezone

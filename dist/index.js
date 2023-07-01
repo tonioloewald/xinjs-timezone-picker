@@ -1436,11 +1436,14 @@ const $1fe5fe80b15eb088$export$bc6bb0e72ae9e582 = Intl.supportedValuesOf("timeZo
         timeZoneName: "short",
         timeZone: name
     }).format($1fe5fe80b15eb088$var$timeNow).split(" ").pop();
-    return {
+    const tz = {
         name: name,
         abbr: abbr,
         offset: offset
     };
+    const parts = name.split("/");
+    if (parts.length === 3) tz.shortName = `${parts[0]}/${parts[2]}`;
+    return tz;
 });
 const $1fe5fe80b15eb088$export$80a1beafc835526e = $1fe5fe80b15eb088$export$bc6bb0e72ae9e582.find((z)=>z.name === Intl.DateTimeFormat().resolvedOptions().timeZone);
 
@@ -5037,9 +5040,9 @@ const { fragment: $dac6c3868e5c3497$var$fragment, div: $dac6c3868e5c3497$var$div
 const $dac6c3868e5c3497$var$SVG_XMLNS = "http://www.w3.org/2000/svg";
 const $dac6c3868e5c3497$var$DATALIST_ID = "-timezone-list-";
 const $dac6c3868e5c3497$var$zoneFromName = (name)=>{
-    return (0, $1fe5fe80b15eb088$export$bc6bb0e72ae9e582).find((tz)=>tz.name === name);
+    return (0, $1fe5fe80b15eb088$export$bc6bb0e72ae9e582).find((tz)=>tz.name === name || tz.shortName === name);
 };
-const $dac6c3868e5c3497$var$zoneId = (tz)=>`${tz.name.replace(/_/g, " ")} GMT${tz.offset > 0 ? "+" : ""}${tz.offset !== 0 ? tz.offset : ""}`;
+const $dac6c3868e5c3497$var$zoneId = (tz)=>`${(tz.shortName !== undefined ? tz.shortName : tz.name).replace(/_/g, " ")} GMT${tz.offset > 0 ? "+" : ""}${tz.offset !== 0 ? tz.offset : ""}`;
 const $dac6c3868e5c3497$var$zoneFromId = (id)=>{
     return (0, $1fe5fe80b15eb088$export$bc6bb0e72ae9e582).find((tz)=>id === $dac6c3868e5c3497$var$zoneId(tz));
 };
@@ -5120,7 +5123,8 @@ class $dac6c3868e5c3497$export$6e05cc8a7dfe9700 extends (0, $519f1ddd575d759f$ex
             borderRadius: "var(--input-radius, 5px)",
             textAlign: "center",
             border: "none",
-            outline: "none"
+            outline: "none",
+            /* firefox bug */ width: "calc(100% - var(--inset, 10px) * 4)"
         }
     });
     content = $dac6c3868e5c3497$var$fragment($dac6c3868e5c3497$var$div({

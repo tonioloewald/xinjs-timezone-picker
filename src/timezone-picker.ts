@@ -8,10 +8,10 @@ const SVG_XMLNS = 'http://www.w3.org/2000/svg'
 const DATALIST_ID = '-timezone-list-'
 
 const zoneFromName = (name: string): Timezone | undefined => {
-  return timezones.find(tz => tz.name === name)
+  return timezones.find(tz => tz.name === name || tz.shortName === name)
 }
 
-const zoneId = (tz: Timezone): string => `${tz.name.replace(/_/g, ' ')} GMT${tz.offset > 0 ? '+' : ''}${tz.offset !== 0 ? tz.offset : ''}`
+const zoneId = (tz: Timezone): string => `${(tz.shortName !== undefined ? tz.shortName : tz.name).replace(/_/g, ' ')} GMT${tz.offset > 0 ? '+' : ''}${tz.offset !== 0 ? tz.offset : ''}`
 const zoneFromId = (id: string): Timezone | undefined => {
   return timezones.find(tz => id === zoneId(tz))
 }
@@ -103,6 +103,8 @@ export class TimezonePicker extends WebComponent {
       textAlign: 'center',
       border: 'none',
       outline: 'none',
+      /* firefox bug */
+      width: 'calc(100% - var(--inset, 10px) * 4)'
     },
   })
 
