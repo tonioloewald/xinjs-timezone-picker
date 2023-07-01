@@ -44,7 +44,7 @@
   "targets": {
     "docs": {
       "context": "browser",
-      "distDir": "docs",
+      "distDir": ".",
       "source": "demo/index.html",
       "optimize": true
     },
