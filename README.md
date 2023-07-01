@@ -5,6 +5,15 @@
 This is a [web-component](https://developer.mozilla.org/en-US/docs/Web/API/Web_components) 
 that provides a graphical timezone-picker, inspired by Apple's graphical timezone-picker.
 
+It has been made as compact and fast-loading as possible, by keeping the geometry to a minimum,
+computing as using data provided by `Intl` where possible, and generating the underlying SVG
+data on-the-fly.
+
+The widget is designed so that the `value` of the `<timezone-picker>` element will always
+be a valid IANA timezone name, and it supports both a graphical picker and `autocomplete`
+based on the timezone name *and* the GMT offset, so you can get to "America/Los_Angeles"
+by typing "Los" or "-7".
+
 ## Usage
 
 ### HTML
@@ -13,7 +22,7 @@ that provides a graphical timezone-picker, inspired by Apple's graphical timezon
 
 And now you can use:
 
-    <timezone-picker></timezone-picker>
+    <timezone-picker timezone="Australia/Sydney"></timezone-picker>
 
 ### Programmatically
 
@@ -58,6 +67,14 @@ By default, the <timezone-picker> is 400px wide and 231px tall.
 
 `--hover-transition` controls the animated transition of the timezones.
 
-`--inset` and `--padding` position and pad the time-zone `<select>`.
+`--inset`, `--padding`, `--input-bg`, `--input-radius`, position the timezone `<input>`.
 
-`--font-size`, `--font-color`, and `--font-family` control the text of the `<select>`
+`--font-size`, `--font-color`, and `--font-family` control the text of the `<input>`
+
+## Acknowledgements
+
+I've built on data I found in Keval Bhatt's excellent jQuery-based picker,
+found here https://github.com/kevalbhatt/timezone-picker
+
+These things are a huge pain-in-the-ass to get right, and I actually ditched
+an SVG file I had paid to have built in favor of Keval's data. Bravo!
