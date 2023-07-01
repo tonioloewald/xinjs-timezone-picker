@@ -29,8 +29,6 @@ const timezoneMap = (): any => {
     ...regions.map(region => {
       const polygon = document.createElementNS(SVG_XMLNS, 'polygon')
       polygon.setAttribute('points', region.points)
-      polygon.setAttribute('data-timezone', region.timezone)
-      polygon.setAttribute('data-offset', String(region.offset))
       polygon[regionKey] = region
       return polygon
     })

@@ -5053,8 +5053,6 @@ const $dac6c3868e5c3497$var$timezoneMap = ()=>{
     svg.append(...(0, $7148e8975cd26971$export$6b408984b31c1b30).map((region)=>{
         const polygon = document.createElementNS($dac6c3868e5c3497$var$SVG_XMLNS, "polygon");
         polygon.setAttribute("points", region.points);
-        polygon.setAttribute("data-timezone", region.timezone);
-        polygon.setAttribute("data-offset", String(region.offset));
         polygon[$dac6c3868e5c3497$var$regionKey] = region;
         return polygon;
     }));
