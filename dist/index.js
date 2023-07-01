@@ -1479,7 +1479,7 @@ const $7148e8975cd26971$export$6b408984b31c1b30 = [
         abbr: "CET"
     },
     {
-        timezone: "Africa/Asmara",
+        timezone: "Africa/Asmera",
         country: "ER",
         pin: "304,104",
         offset: 3,
@@ -1935,7 +1935,7 @@ const $7148e8975cd26971$export$6b408984b31c1b30 = [
         abbr: "BRT"
     },
     {
-        timezone: "America/Argentina/Buenos_Aires",
+        timezone: "America/Buenos_Aires",
         country: "AR",
         pin: "169,173",
         offset: -3,
@@ -1943,7 +1943,7 @@ const $7148e8975cd26971$export$6b408984b31c1b30 = [
         abbr: "ART"
     },
     {
-        timezone: "America/Argentina/Catamarca",
+        timezone: "America/Catamarca",
         country: "AR",
         pin: "159,165",
         offset: -3,
@@ -1951,7 +1951,7 @@ const $7148e8975cd26971$export$6b408984b31c1b30 = [
         abbr: "ART"
     },
     {
-        timezone: "America/Argentina/Catamarca",
+        timezone: "America/Catamarca",
         country: "AR",
         pin: "159,165",
         offset: -3,
@@ -1959,7 +1959,7 @@ const $7148e8975cd26971$export$6b408984b31c1b30 = [
         abbr: "ART"
     },
     {
-        timezone: "America/Argentina/Cordoba",
+        timezone: "America/Cordoba",
         country: "AR",
         pin: "161,169",
         offset: -3,
@@ -1967,7 +1967,7 @@ const $7148e8975cd26971$export$6b408984b31c1b30 = [
         abbr: "ART"
     },
     {
-        timezone: "America/Argentina/Jujuy",
+        timezone: "America/Jujuy",
         country: "AR",
         pin: "159,159",
         offset: -3,
@@ -1983,7 +1983,7 @@ const $7148e8975cd26971$export$6b408984b31c1b30 = [
         abbr: "ART"
     },
     {
-        timezone: "America/Argentina/Mendoza",
+        timezone: "America/Mendoza",
         country: "AR",
         pin: "154,171",
         offset: -3,
@@ -2055,7 +2055,7 @@ const $7148e8975cd26971$export$6b408984b31c1b30 = [
         abbr: "CST"
     },
     {
-        timezone: "America/Atikokan",
+        timezone: "America/Toronto",
         country: "CA",
         pin: "123,57",
         offset: -5,
@@ -2463,7 +2463,7 @@ const $7148e8975cd26971$export$6b408984b31c1b30 = [
         abbr: "EST"
     },
     {
-        timezone: "America/Indiana/Indianapolis",
+        timezone: "America/Indianapolis",
         country: "US",
         pin: "130,70",
         offset: -5,
@@ -2575,7 +2575,7 @@ const $7148e8975cd26971$export$6b408984b31c1b30 = [
         abbr: "AKST"
     },
     {
-        timezone: "America/Kentucky/Louisville",
+        timezone: "America/Louisville",
         country: "US",
         pin: "131,72",
         offset: -5,
@@ -3407,8 +3407,8 @@ const $7148e8975cd26971$export$6b408984b31c1b30 = [
         abbr: "AZT"
     },
     {
-        timezone: "Asia/Chongqing",
-        country: "",
+        timezone: "Asia/Shanghai",
+        country: "CN",
         pin: "250,125",
         offset: 8,
         points: "403,95,402,95,401,95,401,95,399,95,398,94,398,93,396,93,394,94,394,93,393,94,392,93,391,94,391,96,391,96,390,95,389,95,389,94,388,94,388,93,387,93,387,91,385,92,386,90,387,89,387,87,386,86,387,86,387,85,388,84,387,81,385,80,386,79,385,78,387,78,388,77,387,77,388,77,387,75,388,73,388,72,389,72,385,71,386,70,384,70,385,68,386,68,385,66,390,66,396,67,399,66,403,66,404,65,407,67,409,66,408,67,408,69,406,69,404,70,403,72,404,73,403,77,404,79,402,79,403,80,402,80,403,82,401,83,401,84,402,85,402,87,401,87,402,87,402,88,402,89,405,89,404,90,405,90,406,91,405,93,406,92,407,95,405,95,405,94,405,94,404,93,403,95",
@@ -3503,8 +3503,8 @@ const $7148e8975cd26971$export$6b408984b31c1b30 = [
         abbr: "EET"
     },
     {
-        timezone: "Asia/Harbin",
-        country: "",
+        timezone: "Asia/Shanghai",
+        country: "CN",
         pin: "250,125",
         offset: 8,
         points: "424,68,423,65,423,66,421,65,421,63,420,64,420,62,419,61,420,61,421,60,422,60,420,59,423,58,423,58,425,54,424,53,421,54,420,53,423,51,425,52,427,56,431,57,432,59,437,58,437,59,435,62,433,62,432,63,432,65,431,66,431,66,430,65,430,66,428,67,428,68,426,67,424,68",
@@ -3519,7 +3519,7 @@ const $7148e8975cd26971$export$6b408984b31c1b30 = [
         abbr: "EET"
     },
     {
-        timezone: "Asia/Ho_Chi_Minh",
+        timezone: "Asia/Saigon",
         country: "VN",
         pin: "398,110",
         offset: 7,
@@ -3615,7 +3615,7 @@ const $7148e8975cd26971$export$6b408984b31c1b30 = [
         abbr: "XJT"
     },
     {
-        timezone: "Asia/Kathmandu",
+        timezone: "Asia/Katmandu",
         country: "NP",
         pin: "368,87",
         offset: 5.8,
@@ -5060,10 +5060,6 @@ const $7148e8975cd26971$export$6b408984b31c1b30 = [
 const { fragment: $dac6c3868e5c3497$var$fragment, div: $dac6c3868e5c3497$var$div, select: $dac6c3868e5c3497$var$select, option: $dac6c3868e5c3497$var$option } = (0, $519f1ddd575d759f$export$7a5d735b2ab6389d);
 const $dac6c3868e5c3497$var$SVG_XMLNS = "http://www.w3.org/2000/svg";
 const $dac6c3868e5c3497$var$regionKey = Symbol("region");
-(0, $7148e8975cd26971$export$6b408984b31c1b30).forEach((region)=>{
-    const timezone = (0, $1fe5fe80b15eb088$export$bc6bb0e72ae9e582).find((tz)=>tz.name === region.timezone);
-    if (timezone !== undefined) region.abbr = timezone.abbr;
-});
 const $dac6c3868e5c3497$var$timezoneMap = ()=>{
     const svg = document.createElementNS($dac6c3868e5c3497$var$SVG_XMLNS, "svg");
     svg.setAttribute("viewBox", "0 0 500 250");
@@ -5078,6 +5074,7 @@ const $dac6c3868e5c3497$var$timezoneMap = ()=>{
 class $dac6c3868e5c3497$export$6e05cc8a7dfe9700 extends (0, $519f1ddd575d759f$export$16fa2f45be04daa8) {
     value = (0, $1fe5fe80b15eb088$export$80a1beafc835526e);
     timezone = (0, $1fe5fe80b15eb088$export$80a1beafc835526e).name;
+    region = (0, $7148e8975cd26971$export$6b408984b31c1b30).find((rg)=>rg.timezone === (0, $1fe5fe80b15eb088$export$80a1beafc835526e).name);
     styleNode = (0, $519f1ddd575d759f$export$16fa2f45be04daa8).StyleNode({
         ":host": {
             display: "flex",
@@ -5095,6 +5092,7 @@ class $dac6c3868e5c3497$export$6e05cc8a7dfe9700 extends (0, $519f1ddd575d759f$ex
             height: "100%"
         },
         "polygon": {
+            transition: "var(--transition, ease-out 0.2s)",
             fill: "var(--map-land, #555)"
         },
         "polygon:hover": {
@@ -5131,7 +5129,12 @@ class $dac6c3868e5c3497$export$6e05cc8a7dfe9700 extends (0, $519f1ddd575d759f$ex
     pickRegion = (event)=>{
         // @ts-expect-error
         const region = event.target[$dac6c3868e5c3497$var$regionKey];
-        if (region !== undefined) this.timezone = region.timezone;
+        if (region !== undefined) {
+            this.region = region;
+            this.timezone = region.timezone;
+        }
+        if (this.value === undefined || this.value.name !== this.timezone) // @ts-expect-error
+        this.value = (0, $1fe5fe80b15eb088$export$bc6bb0e72ae9e582).find((timezone)=>timezone.name === this.timezone);
     };
     connectedCallback() {
         super.connectedCallback();
@@ -5141,14 +5144,12 @@ class $dac6c3868e5c3497$export$6e05cc8a7dfe9700 extends (0, $519f1ddd575d759f$ex
     }
     render() {
         const { zonePicker: zonePicker, map: map } = this.refs;
-        if (this.value.name !== this.timezone) // @ts-expect-error
-        this.value = (0, $1fe5fe80b15eb088$export$bc6bb0e72ae9e582).find((timezone)=>timezone.name === this.timezone);
-        const zones = (0, $1fe5fe80b15eb088$export$bc6bb0e72ae9e582).filter((timezone)=>timezone.abbr === this.value.abbr);
+        const zones = (0, $1fe5fe80b15eb088$export$bc6bb0e72ae9e582).filter((timezone)=>timezone.abbr === this.value?.abbr);
         [
             ...map.querySelectorAll(`polygon`)
         ].forEach((polygon)=>{
-            // console.log(polygon[regionKey].abbr)
-            polygon.classList.toggle("active", polygon[$dac6c3868e5c3497$var$regionKey].abbr === this.value.abbr);
+            const region = polygon[$dac6c3868e5c3497$var$regionKey];
+            polygon.classList.toggle("active", this.region !== undefined && region.abbr === this.region?.abbr && region.offset === this.region?.offset);
         });
         zonePicker.textContent = "";
         zonePicker.append(...zones.map((timezone)=>$dac6c3868e5c3497$var$option({
