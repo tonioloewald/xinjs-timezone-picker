@@ -7,7 +7,18 @@ const {fragment, div, option, input, datalist} = elements
 const SVG_XMLNS = 'http://www.w3.org/2000/svg'
 const DATALIST_ID = '-timezone-list-'
 
+const zoneFromName = (name: string): Timezone | undefined => {
+  return timezones.find(tz => tz.name === name)
+}
+
 const zoneId = (tz: Timezone): string => `${tz.name.replace(/_/g, ' ')} GMT${tz.offset > 0 ? '+' : ''}${tz.offset !== 0 ? tz.offset : ''}`
+const zoneFromId = (id: string): Timezone | undefined => {
+  return timezones.find(tz => id === zoneId(tz))
+}
+
+const zoneFromRegion = (region: Region): Timezone | undefined => {
+  return timezones.find(tz => tz.name === region.timezone) || timezones.find(tz => tz.offset === region.offset)
+}
 
 const regionKey = Symbol('region')
 
@@ -18,6 +29,8 @@ const timezoneMap = (): any => {
     ...regions.map(region => {
       const polygon = document.createElementNS(SVG_XMLNS, 'polygon')
       polygon.setAttribute('points', region.points)
+      polygon.setAttribute('data-timezone', region.timezone)
+      polygon.setAttribute('data-offset', String(region.offset))
       polygon[regionKey] = region
       return polygon
     })
@@ -32,16 +45,18 @@ const timezoneDatalist = datalist(
 
 export class TimezonePicker extends WebComponent {
   value = localTimezone.name
-
-  timezone = zoneId(localTimezone)
+  timezone = localTimezone.name
 
   get zone() : Timezone {
-    return timezones.find(tz => zoneId(tz) === this.timezone) as Timezone
+    return zoneFromName(this.timezone) as Timezone
   }
 
   get region() : Region | undefined {
-    const {name} = this.zone
-    return regions.find(rg => rg.timezone === name)
+    return regions.find(rg => rg.timezone === this.timezone)
+  }
+
+  get zoneId(): string {
+    return zoneId(this.zone)
   }
 
   styleNode = WebComponent.StyleNode({
@@ -61,14 +76,18 @@ export class TimezonePicker extends WebComponent {
       height: '100%'
     },
     'polygon': {
-      transition: 'var(--transition, ease-out 0.2s)',
+      transition: 'var(--transition, ease-out 0.3s)',
       fill: 'var(--map-land, #555)',
+      stroke: 'var(--map-land, #555)',
+      strokeWidth: 0.5,
     },
-    'polygon:hover': {
+    'polygon.hover': {
       fill: 'var(--hover-color, #777)',
+      stroke: 'var(--hover-color, #555)',
     },
     'polygon.active': {
       fill: 'var(--active-color, #999)',
+      stroke: 'var(--active-color, #555)',
     },
     '.zone-name': {
       position: 'absolute',
@@ -90,7 +109,7 @@ export class TimezonePicker extends WebComponent {
     div({class: 'map', dataRef: 'map'}),
     input({
       class: 'zone-name',
-      dataRef: 'zonePicker',
+      dataRef: 'zoneName',
       list: DATALIST_ID,
     }),
     timezoneDatalist
@@ -101,75 +120,82 @@ export class TimezonePicker extends WebComponent {
     this.initAttributes('timezone')
   }
 
-  static zoneFromRegion(region: Region): Timezone | undefined {
-    return timezones.find(tz => tz.name === region.timezone) || timezones.find(tz => tz.offset === region.offset)
+  hoverRegion = (event: Event): void => {
+    const {zoneName} = this.refs
+    // @ts-expect-error
+    const region = event.target[regionKey]
+    this.updateRegions(region, 'hover')
+    if (region === undefined) {
+      zoneName.value = this.zoneId
+      return
+    }
+    const zone = zoneFromRegion(region)
+    zoneName.value = zone !== undefined ? zoneId(zone) : region.timezone
   }
 
   pickRegion = (event: Event): void => {
-    const {zonePicker} = this.refs
+    const {zoneName} = this.refs
     // @ts-expect-error
     const region = event.target[regionKey]
     if (region === undefined) {
       return
     }
-    const zone = TimezonePicker.zoneFromRegion(region)
+    const zone = zoneFromRegion(region)
     if (zone !== undefined) {
-      zonePicker.value = this.timezone = zoneId(zone)
-      this.value = zone.name
+      zoneName.value = this.zoneId
+      this.value = this.timezone = zone.name
     }
   }
 
-  static zoneFromId(id: string): Timezone | undefined {
-    return timezones.find(tz => id === zoneId(tz))
-  }
-
   pickZone = (event: Event): void => {
-    const {zonePicker} = this.refs
+    const {zoneName} = this.refs
     // @ts-expect-error
     const id = event.target.value
-    const zone = TimezonePicker.zoneFromId(id)
+    const zone = zoneFromId(id)
     if (zone !== undefined) {
-      this.timezone = zonePicker.value
-      this.value = zone.name
+      this.value = this.timezone = zone.name
     } else {
-      zonePicker.value = this.timezone
+      zoneName.value = this.zoneId
     }
   }
 
   connectedCallback() {
     super.connectedCallback()
 
-    const {map, zonePicker} = this.refs
-    zonePicker.setAttribute('list', DATALIST_ID)
+    const {map, zoneName} = this.refs
+    zoneName.setAttribute('list', DATALIST_ID)
     if (map.querySelector('svg') === null) {
       map.append(timezoneMap())
     }
+    map.addEventListener('mouseover', this.hoverRegion)
     map.addEventListener('click', this.pickRegion)
-    zonePicker.addEventListener('change', this.pickZone)
+    zoneName.addEventListener('change', this.pickZone)
   }
 
   private validate() {
-    if (this.value !== this.zone.name) {
-      const newZone = timezones.find(tz => tz.name === this.value)
-      if (newZone !== undefined) {
-        this.timezone = zoneId(newZone)
-      } else {
-        this.value = this.zone.name
+    if (this.value !== this.timezone) {
+      const newZone = zoneFromName(this.value)
+      if (newZone === undefined) {
+        this.value = this.timezone
       }
     }
   }
 
-  render() {
-    this.validate()
-
-    const {region} = this
-    const {zonePicker, map} = this.refs
-    console.log(region, this.value)
+  private updateRegions(region: Region | undefined, className: string) {
+    const {map} = this.refs
     ;[...map.querySelectorAll(`polygon`)].forEach(polygon => {
       const rg = polygon[regionKey] as Region
-      polygon.classList.toggle('active', rg === region || (rg.abbr === region?.abbr && rg.offset === region?.offset))
+      polygon.classList.toggle(className, rg === region || (rg.abbr === region?.abbr && rg.offset === region?.offset))
     })
-    zonePicker.value = this.timezone
+  }
+
+  render() {
+    super.render()
+    this.validate()
+    this.updateRegions(this.region, 'active')
+
+    const {zoneName} = this.refs
+    zoneName.value = this.zoneId
   }
 }
 
