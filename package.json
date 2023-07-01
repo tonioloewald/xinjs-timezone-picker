@@ -42,6 +42,12 @@
   ],
   "type": "module",
   "targets": {
+    "demo": {
+      "context": "browser",
+      "distDir": "pages",
+      "source": "demo/index.html",
+      "optimize": true
+    },
     "dist": {
       "context": "browser",
       "source": "src/index.ts",
