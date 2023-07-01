@@ -12,22 +12,29 @@
 
       :root {
         --font-family: 'Roboto Slab', sans-serif;
+        --font-size: 16px;
         --brand-color: #088358;
         --brand-text-color: #ECF3DD;
         --spacing: 10px;
+        --heading-scale: 2;
       }
 
       * {
         font-family: var(--font-family);
+        font-size: var(--font-size);
       }
 
       body { 
         margin: 0;
+        max-width: 100vw;
+        max-height: 100vh;
+        overflow: hidden;
       }
 
       h1 {
         background: var(--brand-color);
         color: var(--brand-text-color);
+        font-size: calc(var(--font-size) * var(--heading-scale));
         font-weight: 400;
         margin: 0;
         padding: var(--spacing);
@@ -40,24 +47,52 @@
         flex-direction: column;
       }
 
+      .column > * {
+        max-width: 100vw;
+      }
+
       .bar {
         display: flex;
         gap: var(--spacing);
         justify-content: center;
         align-items: center;
         padding: var(--spacing);
+        flex-wrap: wrap;
       }
 
       timezone-picker {
         align-self: center;
         border-radius: var(--spacing);
         overflow: hidden;
+        flex: 1 1;
         --active-color: #444;
         --font-color: black;
         --hover-color: #888;
         --map-land: #aaa;
         --map-ocean: #ccd;
         --scale: 1.5;
+      }
+
+      @media screen and (max-width: 600px) {
+        :root {
+          --spacing: 8px;
+          --heading-scale: 1.5;
+        }
+
+        timezone-picker {
+          --scale: 1;
+        }
+      }
+
+      @media screen and (max-height: 600px) {
+        :root {
+          --spacing: 8px;
+          --heading-scale: 1.5;
+        }
+
+        timezone-picker {
+          --scale: 1;
+        }
       }
 
       a {
