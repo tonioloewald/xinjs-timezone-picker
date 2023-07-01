@@ -39,3 +39,16 @@ export const timezones: Timezone[] = Intl.supportedValuesOf('timeZone').map(name
 })
 
 export const localTimezone = timezones.find(z => z.name === Intl.DateTimeFormat().resolvedOptions().timeZone) as Timezone
+
+export const zoneFromName = (name: string): Timezone | undefined => {
+  return timezones.find(tz => tz.name === name || tz.shortName === name)
+}
+export const zoneId = (tz: Timezone): string => {
+  const name = (tz.shortName !== undefined ? tz.shortName : tz.name)
+  const {offset} = tz
+  const signedOffset = offset > 0 ? `+${offset}` : (offset < 0 ? String(offset) : '')
+  return `${name.replace(/_/g, ' ')} GMT${signedOffset}`
+}
+export const zoneFromId = (id: string): Timezone | undefined => {
+  return timezones.find(tz => id === zoneId(tz))
+}
