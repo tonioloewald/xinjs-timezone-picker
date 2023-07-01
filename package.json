@@ -59,7 +59,6 @@
       "context": "browser",
       "source": "src/index.ts",
       "distDir": "cdn",
-      "optimize": true,
       "isLibrary": true,
       "outputFormat": "esmodule"
     }
