@@ -1,6 +1,6 @@
 # xinjs-timezone-picker
 
-[demo](https://tonioloewald.github.io/xinjs-timezone-picker/) | [github](https://github.com/tonioloewald/xinjs-timezone-picker#readme) | [npm](https://www.npmjs.com/package/xinjs-timezone-picker)
+[demo](https://tonioloewald.github.io/xinjs-timezone-picker/) | [github](https://github.com/tonioloewald/xinjs-timezone-picker#readme) | [npm](https://www.npmjs.com/package/xinjs-timezone-picker) | ![bundlejs](https://deno.bundlejs.com/?q=xinjs-timezone-picker&badge=)
 
 Copyright ©2023 Tonio Loewald
 
