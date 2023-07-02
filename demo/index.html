@@ -17,12 +17,13 @@
         --brand-text-color: #ECF3DD;
         --spacing: 10px;
         --heading-scale: 2;
+        --line-height: calc(var(--font-size) * 1.6);
       }
 
       @media screen and (max-width: 800px) {
         :root {
           --spacing: 8px;
-          --heading-scale: 1.5;
+          --heading-scale: 1.3;
         }
 
         timezone-picker {
@@ -33,7 +34,7 @@
       @media screen and (max-height: 800px) {
         :root {
           --spacing: 8px;
-          --heading-scale: 1.5;
+          --heading-scale: 1.3;
         }
 
         timezone-picker {
@@ -48,12 +49,14 @@
 
       body { 
         margin: 0;
+        line-height: vaR(--line-height);
       }
 
       h1 {
         background: var(--brand-color);
         color: var(--brand-text-color);
         font-size: calc(var(--font-size) * var(--heading-scale));
+        line-height: calc(var(--line-height) * var(--heading-scale));
         font-weight: 400;
         margin: 0;
         padding: var(--spacing);
