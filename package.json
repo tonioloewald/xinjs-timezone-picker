@@ -6,7 +6,7 @@
   "types": "dist/types.d.ts",
   "scripts": {
     "start": "rm -rf www && bun parcel demo/index.html --dist-dir www -p 8777",
-    "build": "bun test && rm -rf docs && bun parcel build --public-url .",
+    "build": "bun test && rm -rf docs && mkdir docs && echo timezones.xinjs.net > docs/CNAME && bun parcel build --public-url .",
     "test": "bun test",
     "update": "bun install"
   },
