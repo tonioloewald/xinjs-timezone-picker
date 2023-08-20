@@ -1,6 +1,6 @@
 {
   "name": "xinjs-timezone-picker",
-  "version": "0.4.0",
+  "version": "0.4.2",
   "description": "a lightweight, mobile-friendly, self-contained timezone-picker web-component",
   "main": "dist/index.js",
   "types": "dist/types.d.ts",
