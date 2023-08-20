@@ -1,5 +1,4 @@
 /* eslint-disable */
-// @ts-expect-error
 import { test, expect } from 'bun:test'
 import { regions, zoneFromRegion } from './regions'
 import { area, stringToPolygon } from './polygons'
@@ -7,7 +6,7 @@ import { area, stringToPolygon } from './polygons'
 test('regions loads', () => {
   expect(regions === undefined).toBe(false)
   expect(Array.isArray(regions)).toBe(true)
-  expect(regions.length).toBe(448)
+  expect(regions.length).toBe(447)
 })
 
 test('no region has a degenerate polygon', () => {

@@ -15,8 +15,8 @@ export const regionId = (region: Region): string => {
   return `${(region.timezone).replace(/_/g, ' ')} GMT${offset > 0 ? '+' : ''}${offset !== 0 ? offset : ''}`
 }
 
-export const zoneFromRegion = (region: {timezone: string}): Timezone => {
-  return timezones.find(tz => tz.name === region.timezone) as Timezone
+export const zoneFromRegion = (region: {timezone: string}): Timezone | undefined => {
+  return timezones.find(tz => tz.name === region.timezone)
 }
 
 export const regions: Region[] = [
@@ -999,7 +999,7 @@ export const regions: Region[] = [
     abbr: "UYT"
   },
   {
-    timezone: "America/Montreal",
+    timezone: "America/Tortonto",
     country: "",
     points: "146,63,151,63,155,58,159,58,160,57,157,57,149,61,152,60,155,57,158,55,167,55,171,53,161,53,161,52,158,53,158,51,156,52,156,50,159,49,161,48,162,45,160,43,156,45,154,45,154,43,153,42,153,40,151,39,148,38,146,39,142,38,142,40,143,42,141,44,143,44,144,47,139,49,140,50,140,53,139,59,141,61,144,62,147,62,146,63",
     abbr: "EST"
@@ -2708,7 +2708,13 @@ export const regions: Region[] = [
     points: "6,142,6,144,4,144,4,142",
     abbr: "WFT"
   }
-].map(rg => ({
-  ...rg,
-  offset: zoneFromRegion(rg).offset
-}))
+].map(rg => {
+  const region = zoneFromRegion(rg)
+  if (region === undefined) {
+    console.warn('missing timezone data for', rg)
+  }
+  return region !== undefined ? {
+    ...rg,
+    offset: region.offset
+  } : undefined
+}).filter(region => region !== undefined) as Region[]

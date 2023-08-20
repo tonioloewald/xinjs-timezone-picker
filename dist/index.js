@@ -2449,7 +2449,7 @@ const $7148e8975cd26971$export$6b408984b31c1b30 = [
         abbr: "UYT"
     },
     {
-        timezone: "America/Montreal",
+        timezone: "America/Tortonto",
         country: "",
         points: "146,63,151,63,155,58,159,58,160,57,157,57,149,61,152,60,155,57,158,55,167,55,171,53,161,53,161,52,158,53,158,51,156,52,156,50,159,49,161,48,162,45,160,43,156,45,154,45,154,43,153,42,153,40,151,39,148,38,146,39,142,38,142,40,143,42,141,44,143,44,144,47,139,49,140,50,140,53,139,59,141,61,144,62,147,62,146,63",
         abbr: "EST"
@@ -4158,10 +4158,14 @@ const $7148e8975cd26971$export$6b408984b31c1b30 = [
         points: "6,142,6,144,4,144,4,142",
         abbr: "WFT"
     }
-].map((rg)=>({
+].map((rg)=>{
+    const region = $7148e8975cd26971$export$b04b5cae79e1ad83(rg);
+    if (region === undefined) console.warn("missing timezone data for", rg);
+    return region !== undefined ? {
         ...rg,
-        offset: $7148e8975cd26971$export$b04b5cae79e1ad83(rg).offset
-    }));
+        offset: region.offset
+    } : undefined;
+}).filter((region)=>region !== undefined);
 
 
 const { fragment: $dac6c3868e5c3497$var$fragment, div: $dac6c3868e5c3497$var$div, option: $dac6c3868e5c3497$var$option, input: $dac6c3868e5c3497$var$input, datalist: $dac6c3868e5c3497$var$datalist } = (0, $519f1ddd575d759f$export$7a5d735b2ab6389d);
