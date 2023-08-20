@@ -6,7 +6,7 @@ import { area, stringToPolygon } from './polygons'
 test('regions loads', () => {
   expect(regions === undefined).toBe(false)
   expect(Array.isArray(regions)).toBe(true)
-  expect(regions.length).toBe(447)
+  expect(regions.length).toBe(448)
 })
 
 test('no region has a degenerate polygon', () => {
