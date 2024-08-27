@@ -8,7 +8,7 @@ This is a [web-component](https://developer.mozilla.org/en-US/docs/Web/API/Web_c
 that provides a graphical timezone-picker, inspired by Apple's graphical timezone-picker.
 
 `<timezone-picker>` has been made as compact and fast-loading as possible, by keeping the geometry to a minimum,
-computing as using data provided by `Intl` where possible, and generating the underlying SVG
+using data provided by `Intl` where possible, and generating the underlying SVG
 data on-the-fly.
 
 The widget is designed so that the `value` of the `<timezone-picker>` element will always
