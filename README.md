@@ -59,7 +59,7 @@ These are respectively of type `Timezone[]` and a `Timezone`, where:
 
 You can style the <timezone-picker> by using [CSS-Variables](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_cascading_variables)
 
-By default, the <timezone-picker> is 400px wide and 231px tall.
+By default, the `<timezone-picker>` is 400px wide and 231px tall.
 
 `--scale` scales the map as a whole.
 
