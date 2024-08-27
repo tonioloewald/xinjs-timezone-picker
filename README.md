@@ -73,6 +73,18 @@ By default, the `<timezone-picker>` is 400px wide and 231px tall.
 
 `--font-size`, `--font-color`, and `--font-family` control the text of the `<input>`
 
+## Annoyances
+
+I'm using the built-in support for filtered autocomplete in the `<input>` field
+where you type in the timezone manually. I figure more people simply won't use
+this, but if you do then its behavior is highly dependent on the browser implementation.
+E.g. Chrome is absolutely horrible (the menu jumps around randomly as you type) while
+Safari works beautifully on desktop and on mobile devices.
+
+Ideally I'd switch out the `<input>` field for `xinjs-ui`'s editable `<xin-select>`
+(and implement filtering…) but that would increase the size of this component
+significantly and really Chrome should fix it's shit.
+
 ## Acknowledgements
 
 I've built on data I found in Keval Bhatt's excellent jQuery-based picker,
