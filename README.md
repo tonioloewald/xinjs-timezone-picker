@@ -76,8 +76,8 @@ By default, the `<timezone-picker>` is 400px wide and 231px tall.
 ## Annoyances
 
 I'm using the built-in support for filtered autocomplete in the `<input>` field
-where you type in the timezone manually. I figure more people simply won't use
-this, but if you do then its behavior is highly dependent on the browser implementation.
+where you type in the timezone manually. I figure most people simply won't use
+this, but for thos who do its behavior is highly dependent on the browser implementation.
 E.g. Chrome is absolutely horrible (the menu jumps around randomly as you type) while
 Safari works beautifully on desktop and on mobile devices.
 
